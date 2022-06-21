@@ -1,0 +1,63 @@
+﻿@model Song
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Song Details</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.songName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.songName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.artistName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.artistName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.duration)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.duration)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.albumName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.albumName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.releasedDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.releasedDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.songCost)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.songCost)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.songDownload)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.songDownload)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.totalEarning)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.totalEarning)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="SongEdit" asp-route-id="@Model.songId">Edit</a> |
+    <a asp-action="SongIndex">Back</a>
+</div>

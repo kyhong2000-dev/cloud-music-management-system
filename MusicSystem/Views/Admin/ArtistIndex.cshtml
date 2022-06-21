@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Artist>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>List of Artists</h1>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <td>User ID</td>
+            <td>Artist ID</td>
+            <td>Name</td>
+            <td>Identification Number</td>
+            <td>Contact</td>
+            <td>Status</td>
+            <td>Total Earning (RM)</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var artist in Model)
+        {
+            <tr>
+                <td>@artist.UserID</td>
+                <td>@artist.ArtistID</td>
+                <td>@artist.ArtistName</td>
+                <td>@artist.ArtistIC</td>
+                <td>@artist.ArtistContact</td>
+                <td>@artist.ArtistStatus</td>
+                <td>@artist.TotalEarning</td>
+                <td>
+                    @Html.ActionLink(
+                        linkText: "Approve",
+                        actionName: "ApproveArtist",
+                        controllerName: "Admin",
+                        routeValues: new {
+                            id = @artist.UserID
+                        },
+                        htmlAttributes: null
+                    )
+                     | 
+                    @Html.ActionLink(
+                        linkText: "Remove",
+                        actionName: "RemoveArtist",
+                        controllerName: "Admin",
+                        routeValues: new {
+                            id = @artist.UserID
+                        },
+                        htmlAttributes: null
+                    )
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>

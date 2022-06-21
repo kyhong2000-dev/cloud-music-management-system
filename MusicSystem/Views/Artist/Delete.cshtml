@@ -1,0 +1,83 @@
+﻿@model Song
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this Song?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.songName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.songName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.artistName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.artistName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.duration)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.duration)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.albumName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.albumName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.releasedDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.releasedDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.songCost)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.songCost)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.songDownload)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.songDownload)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.totalEarning)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.totalEarning)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.songFileName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.songFileName)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="songId" />
+        @foreach (var sFile in ViewBag.SongFile)
+        {
+            string link = "https://" + sFile.BucketName + ".s3.us-east-1.amazonaws.com/" + sFile.Key;
+            string FileName = System.IO.Path.GetFileName(sFile.Key);
+            if (Model.songFileName == FileName)
+            {
+               <a asp-action="deleteimage" asp-route-FileName="@sFile.Key" id="deleteS3Song"type="button" value="Delete Image" hidden></a>              
+            }
+         }
+        <input type="submit" value="Delete" class="btn btn-danger"  onclick="document.getElementById('deleteS3Song').click()"/> |
+        <a asp-action="Index">Back</a>
+    </form>
+</div>
+

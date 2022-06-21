@@ -1,0 +1,78 @@
+﻿@using MusicSystem.Areas.Identity.Data
+@model IEnumerable<MusicSystemUser>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>List of Users</h1>
+
+<form>
+    Enter User Email: <input type="text" name="SearchString" />
+    <br />
+    <br />
+    Emails: @Html.DropDownList("Email", "All")
+    <input type="submit" value="Search User" />
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserRole)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArtistStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountBalance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountSpending)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+@foreach (var user in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => user.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.UserRole)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.ArtistStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.AccountBalance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.AccountSpending)
+            </td>
+            <td>
+                <a asp-action="UserEdit" asp-route-id="@user.Id">Edit</a> |
+                <a asp-action="UserDetail" asp-route-id="@user.Id">Details</a> |
+                <a asp-action="UserDelete" asp-route-id="@user.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

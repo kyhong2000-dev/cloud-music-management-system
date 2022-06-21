@@ -1,0 +1,74 @@
+﻿@model Song
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Song</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="songName" class="control-label"></label>
+                <input asp-for="songName" class="form-control" />
+                <span asp-validation-for="songName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="duration" class="control-label"></label>
+                <input asp-for="duration" class="form-control" />
+                <span asp-validation-for="duration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="albumName" class="control-label"></label>
+                <input asp-for="albumName" class="form-control" />
+                <span asp-validation-for="albumName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="releasedDate" class="control-label"></label>
+                <input asp-for="releasedDate" class="form-control" />
+                <span asp-validation-for="releasedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="songFileName" class="control-label"></label>
+                <input asp-for="songFileName" class="form-control" id="fileName" readonly>
+                <span asp-validation-for="songFileName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="songCost" class="control-label"></label>
+                <input asp-for="songCost" class="form-control" />
+                <span asp-validation-for="songCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input id="songFile" type="file" name="mp3Files" accept=".mp3" onchange="getFileData(this)" />
+          </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" onclick="document.getElementById('myform').submit();" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>
+    function getFileData(myFile) {
+        var file = myFile.files[0];
+        var filename = file.name;
+        document.getElementById("fileName").value = filename;
+    }
+
+    function getSongFileName(songFile) {
+        var songFileName = songFile.value
+        document.getElementById("changedFileName").value = songFileName + ".mp3"
+    }
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

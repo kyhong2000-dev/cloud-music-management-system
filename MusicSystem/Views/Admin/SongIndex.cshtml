@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Song>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>List of Songs</h1>
+
+<form>
+    Enter the Song Name that you want to search: <input type="text" name="SearchString" />
+    <br />
+    <br />
+    Artist Name: @Html.DropDownList("ArtistName", "All")
+    <input type="submit" value="Search Song" />
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.songName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.artistName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.albumName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.releasedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.songCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.songDownload)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.totalEarning)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.songName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.artistName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.albumName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.releasedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.songCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.songDownload)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.totalEarning)
+            </td>
+            <td>
+                <a asp-action="SongEdit" asp-route-id="@item.songId">Edit</a> |
+                <a asp-action="SongDetail" asp-route-id="@item.songId">Details</a> |
+                <a asp-action="SongDelete" asp-route-id="@item.songId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

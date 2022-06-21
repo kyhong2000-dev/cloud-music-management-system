@@ -1,0 +1,58 @@
+﻿<!--2D list-->
+@model List<List<KeyValuePair<string, string>>>
+@{
+    ViewData["Title"] = "SearchBasedonPrice";
+}
+
+@if (ViewBag.msg != "")
+{
+    <script>alert("@ViewBag.msg");</script>
+}
+
+<h1>Search The Song Request Name Based On Artist Name:</h1>
+<br />
+<form method="post" asp-action="ViewWishList">
+    <label>Enter Artist Name: </label>
+    <select name="operators">
+        <option value="=" selected>Equal</option>
+    </select>
+    &nbsp;&nbsp;&nbsp;
+    <input type="text" name="ArtistName" placeholder="e.g. Shawn Mendes" required />
+    &nbsp;&nbsp;&nbsp;
+    <input type="submit" name="Submit" value="Search Song Request Based On Artist Name" />
+</form>
+
+<!--display the documents one by one using boxes-->
+@if (ViewBag.msg == "Song Request Found!") // to make sure only show the records when the system found records
+{
+    <p>Number Of Song Request Found: @Model.Count</p>
+
+    foreach (var item in Model) //display item values 1 by 1 from the list
+    {
+
+        <div style="text-align: left; display: inline-block; background-color: lightblue; padding: 8px 8px 8px 8px; margin-bottom:10px ">
+            @foreach (var keyvalue in item)
+            {
+
+                if (keyvalue.Key == "SongWishlistID") 
+                { 
+                    <dt>Song Wish List ID : </dt>
+                }
+                else if (keyvalue.Key == "songRequestName")
+                {
+                    <dt>Song Request Name: </dt>
+                }
+                else if (keyvalue.Key == "ArtistName")
+                {
+                    <dt>Artist Name: </dt>
+                }
+                else if (keyvalue.Key == "songRequestDate")
+                {
+                    <dt>Song Request Name: </dt>
+                }
+                <dd>@keyvalue.Value</dd>
+             }
+            <br />
+        </div>
+    }
+}

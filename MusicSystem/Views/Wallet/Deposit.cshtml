@@ -1,0 +1,22 @@
+﻿<h1>Top Up Wallet</h1>
+<form asp-action="TopUp" method="post">             
+    <table>
+        <tr>
+            <th>Account Balance (RM): </th>
+            <td>@ViewBag.Balance</td>
+        </tr>
+        <tr>
+            <th>Credit Card Number: </th>
+            <td><input type="number" min="0" required/></td>
+        </tr>
+        <tr>
+            <th>Amount (RM): </th>
+            <td><input type="number" min="0" name="amount" step=".01" required/></td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <input type="submit" name="submit" value="Top Up" />    
+            </td>     
+        </tr>  
+    </table>
+</form>   

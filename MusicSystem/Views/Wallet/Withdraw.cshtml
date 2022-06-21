@@ -1,0 +1,26 @@
+﻿<h1>Withdraw from Wallet</h1>
+<form asp-action="Withdraw" method="post">             
+    <table>
+        <tr>
+            <th>Account Balance (RM): </th>
+            <td>@ViewBag.Balance</td>
+        </tr>
+        <tr>
+            <th>Credit Card Number: </th>
+            <td><input type="number" min="0" required/></td>
+        </tr>
+        <tr>
+            <th>Amount (RM): </th>
+            <td><input type="number" min="0" name="amount" step=".01" required/></td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <input type="submit" name="submit" value="Withdraw" />    
+            </td>     
+        </tr>
+        @if (@ViewBag.Error != null)
+        {
+            <h4 style="color:red">Insufficient Funds</h4>
+        }
+    </table>
+</form>   

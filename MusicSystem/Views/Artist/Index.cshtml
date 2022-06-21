@@ -1,0 +1,141 @@
+﻿@model IEnumerable<Song>
+@{
+    ViewData["Title"] = "Artist";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center>
+     @if (@ViewBag.ArtistStatus == "None")
+     {
+         <h1>Artist Verification</h1>
+         <form asp-action="RegisterArtist" method="post">
+             <table>
+                 <tr>
+                 <th>Name: </th>
+                 <td><input type="text" name="ArtistName" required/></td>
+                 </tr>
+                 <tr>
+                 <th>IC: </th>
+                 <td><input type="text" name="ArtistIC" required/></td>
+                  </tr>
+                 <tr>
+                 <th>Contact: </th>
+                 <td><input type="text" name="ArtistContact" required/></td>
+                 </tr>
+                 <tr>
+                     <td colspan="5">
+                        <input type="submit" name="submit" value="Register" />
+                     </td>
+                 </tr>
+             </table>
+        </form>   
+    }
+
+     @if (@ViewBag.ArtistStatus == "Pending")
+     {
+        <h1>Artist Verification Pending</h1>
+        <h4 style="color:red">Please wait for Admin's approval for Artist Request</h4>
+     }
+
+
+    @if (@ViewBag.ArtistStatus == "Verified")
+    {
+
+<h1>Artist Page</h1>
+<p>
+    <a asp-action="Create">Upload Song</a>
+</p>
+<p>
+    <a asp-action="ViewWishList">View Consumer Song Request</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.songName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.albumName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.releasedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.songCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.songDownload)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.songFileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.totalEarning)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+@foreach (var item in Model) {
+    if (item.artistName == ViewBag.ArtistName)                
+    {                 
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.songName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.albumName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.releasedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.songCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.songDownload)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.songFileName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.totalEarning)
+            </td>
+            <td>
+                @foreach (var sFile in ViewBag.SongFile)
+                {
+                    string link = "https://" + sFile.BucketName + ".s3.us-east-1.amazonaws.com/" + sFile.Key;
+                    string FileName = System.IO.Path.GetFileName(sFile.Key);
+                    if (item.songFileName == FileName)
+                    {
+                        <span>
+                            <audio controls>
+                                <source src="@link" type="audio/mpeg" />
+                            </audio>
+                        </span>
+                    }
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.songId">Edit</a> |
+                <a asp-action="Detail" asp-route-id="@item.songId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.songId">Delete</a>
+            </td>
+        </tr>                
+    }
+}
+    </tbody>
+</table>
+
+    
+}
+
+</center>

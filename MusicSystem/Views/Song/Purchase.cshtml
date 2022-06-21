@@ -1,0 +1,90 @@
+﻿@model Song
+
+@{
+    ViewData["Title"] = "Purchase";
+}
+
+<h1>Purchase</h1>
+
+<h3>Are you sure you want to purchase this Song?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.songName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.songName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.artistName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.artistName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.duration)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.duration)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.albumName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.albumName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.releasedDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.releasedDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.songCost)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.songCost)
+        </dd>
+    </dl>
+    @if (@TempData["Purchase"] != null)
+    {
+        <h3>Purchase Successful</h3>
+        @foreach (var sFile in ViewBag.SongFile)
+        {
+            string link = "https://" + sFile.BucketName + ".s3.us-east-1.amazonaws.com/" + sFile.Key;
+            string FileName = System.IO.Path.GetFileName(sFile.Key);
+            if (Model.songFileName == FileName)
+            {
+                <input type="hidden" asp-for="songId" />
+
+                <a href="@link" download="@link" type="submit" class="btn btn-danger">Purchase</a>
+                <a asp-action="Index">Back</a>
+            }
+        }
+    }
+    else
+    {
+        @if (@ViewBag.Error == null)
+        {
+            <form asp-action="Purchase">
+                <input type="hidden" asp-for="songId" />
+                <input type="submit" value="Purchase" class="btn btn-danger" /> |
+                <a asp-action="Index">Back</a>
+            </form>
+        }
+        else
+        {
+            <form asp-action="Purchase">
+                <input type="hidden" asp-for="songId" />
+                <input type="submit" value="Insufficient Funds" class="btn btn-danger" disabled="disabled" /> |
+                <a asp-action="Index">Back</a>
+            </form>
+        }
+
+    }
+
+</div>
+
+<script>
+
+</script>

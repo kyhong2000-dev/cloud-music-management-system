@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Wishlist";
+}
+
+@if (ViewBag.msg != "")
+{
+    <script>alert("@ViewBag.msg")</script>
+}
+
+<center>
+    <a asp-action="CreateWishlistTable">Create New Song Wishlist Request Table</a>
+    <br /><br />
+</center>
+
+
+<center>
+    <div style="background-color:lightblue;margin-top:10px;margin-bottom:10px;padding:12px 12px 12px 12px">
+        <h1>Request For Song To Be Added</h1>
+        <hr />
+        <form method="post" asp-action="addSongWishlistData">
+            <dt>Song Requester Name : </dt>
+            <dd><input type="text" value="" name="songWishlistID" required /></dd>
+
+            <dt>Song Request Name :</dt>
+            <dd><input type="text" value="" name="songRequestName" required /></dd>
+
+            <dt>Song Artist Name : </dt>
+            <dd><input type="text" value="" name="songArtistName" required /></dd>
+
+            <dt>Song Request Date </dt>
+            <dd><input type="date" value="" name="songRequestDate" required /></dd>
+
+            <div style="text-align:center"><input type="submit" name="submit" value="Submit Song Request" /></div>
+        </form>
+    </div>
+</center>
